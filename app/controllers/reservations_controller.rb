@@ -2,6 +2,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservations.all
+    @sum = Reservations.sum(:tickets)
   end
 
   def create
