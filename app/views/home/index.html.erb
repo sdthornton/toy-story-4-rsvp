@@ -1,0 +1,71 @@
+<img src="https://media.entertainmentearth.com/assets/images/3872513dc4c24460a3d19eb78a0606d5.jpg" width="100%">
+<div class="container mb-5 pb-5">
+  <section class="box single-column-width mx-auto position-relative" style="margin-top: -2.25rem;">
+    <div class="text-center">
+      <img src="https://www.embraceoregon.org/images/embrace-oregon.svg" height="96">
+      <h1>RSVP for Toy Story 4</h1>
+    </div>
+
+    <% if @is_submitted %>
+      <p class="mt-4">Thank you for your request for tickets! If you are seeing this screen, your request has been accepted.</p>
+      <p>You may hear from the film company during the week of June 10th with any additional details.</p>
+      <p>Please remember that you are only guaranteed your seats if you arrive prior to 6:40 PM. After that time, the seats will be opened to the general public.</p>
+      <p>To be safe, arrive to the theater <strong>prior to 6:30PM</strong> and check in at the lobby with the film's on site representative. You will check in using the name with which you RSVP'd.</p>
+      <p><strong>Showtime: Tuesday, June 18 @ Regal Tigard 11-  7PM.</strong></p>
+      <p>Thank you & enjoy!<br>&dash; Embrace Oregon Team</p>
+
+    <% elsif @is_full %>
+      <p class="mt-4">Unfortunately, we have reached our capacity for this film screening. We hope to offer more in the future.</p>
+      <p>Your role as a foster family in our community is seen and valued!</p>
+
+    <% else %>
+      <h5 class="text-muted mb-4 font-weight-normal">This summer, Embrace Oregon is thrilled to partner with Allied Global Marketing to offer <strong>40 free tickets</strong> to a prescreening of Toy Story 4!</h5>
+      <h6>Details</h6>
+      <ul>
+        <li>Tuesday, June 18 @ Regal Tigard 11. Showtime at 7PM.</li>
+        <li>You must RSVP below AND arrive by 6:30PM to claim your seats.</li>
+        <li>Theater Address: 11626 SW Pacific HWY, Tigard, OR 97223</li>
+      </ul>
+      <p>RSVP'd guests have guaranteed admittance prior to 6:40PM. After that time seating is on a first-come first-serve basis, and your seat is not guaranteed.</p>
+      <p>When you arrive, please check in at the lobby with the film's on site representative & the EO team and claim your seat using the name you RSVP'd with.</p>
+      <p>You will not need any kind of physical passes to attend and you will be admitted free of charge.</p>
+      <p>We are so thankful for your commitment to children in care and wanted to simply say "thank you" for all that you do! <strong>We are better because of YOU!</strong></p>
+      <iframe width="544" height="306" src="https://www.youtube.com/embed/wmiIUN-7qhE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="mt-4"></iframe>
+      <hr id="form" class="my-5">
+      <%= form_for @reservation, url: { controller: "reservations", action: "create" } do |f| %>
+        <% if @has_errors %>
+          <div class="alert alert-danger mb-4">
+            We were unable to submit your RSVP either because you've all ready signed up with that email address, or we are approaching our ticket limit. Feel free to try again.
+          </div>
+        <% end %>
+        <h3>Reserve Your Tickets</h3>
+        <div class="form-group mt-4">
+          <label for="reservations_email">Your Email Address</label>
+          <%= f.email_field :email, class: "form-control", placeholder: "example@email.com", required: true %>
+        </div>
+        <div class="form-group">
+          <label for="reservations_name">Your Full Name</label>
+          <%= f.text_field :name, class: "form-control", required: true %>
+        </div>
+        <div class="form-group">
+          <label>How many tickets would you like?</label>
+          <% (1..@tickets_available).each do |i| %>
+            <label class="form-check pl-0">
+              <%= f.radio_button :tickets, i, required: true %>
+              <span class="ml-2"><%= i %></span>
+            </label>
+          <% end %>
+        </div>
+        <%= f.submit "Reserve", class: "btn btn-primary px-4 mt-4"%>
+      <% end %>
+    <% end %>
+  </section>
+</div>
+
+<script>
+  (function () {
+    if (location.search.indexOf('errors') >= 0) {
+      history.replaceState({}, "don't double errors", "/#form")
+    }
+  }());
+</script>

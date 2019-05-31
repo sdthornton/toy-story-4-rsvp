@@ -1,0 +1,23 @@
+<section class="container my-5">
+  <h1>Toy Story 4 RSVPs</h1>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Email Address</th>
+        <th>Name</th>
+        <th>Tickets Requested</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |res| %>
+        <tr>
+          <td><%= res.email %></td>
+          <td><%= res.name %></td>
+          <td><%= res.tickets %></td>
+          <td><%= link_to "Delete", reservation_path(res), method: :delete, class: "text-danger small", confirm: "Are you sure?" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
